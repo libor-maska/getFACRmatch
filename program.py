@@ -4,12 +4,12 @@ Všichni hráči (domácí, pak hosté) ze zápisu o utkání na is.fotbal.cz.
 Výpis: Příjmení, Jméno, FAČR ID, číslo dresu.
 
 Příklady:
-  python program.py 2026008C1A0906
-  python program.py 2026008C1A0906 --csv hraci.csv
+  python program.py <číslo utkání>
+  python program.py <číslo utkání> --csv hraci.csv
 
 Jak to funguje: hledání zápasů (prehled-zapasu.aspx) je chráněné CAPTCHA, proto
 skript jde přes přehled soutěží (bez CAPTCHA). Číslo utkání má tvar
-  RRRRxxxSSS KK ZZ   (2026008C1A | 09 | 06)
+  RRRRSSSSSS KK ZZ
   = číslo soutěže, kolo, pořadí zápasu v kole.
 Najde soutěž, projde zápisy v daném kole a vybere ten s odpovídajícím číslem.
 
@@ -126,7 +126,7 @@ def parse_players(html):
                 continue
             div = tds[1].find("div") or tds[1]
             cele = (div.find(string=True, recursive=False) or "").strip()
-            # IS uvádí "Příjmení Jméno"; víceslovné bývá příjmení (např. "Jupa - Williams Kai")
+            # IS uvádí "Příjmení Jméno"; víceslovné bývá příjmení
             prijmeni, _, jmeno = cele.rpartition(" ")
             players.append({
                 "prijmeni": prijmeni or jmeno,
@@ -146,7 +146,7 @@ def main():
         sys.stderr.reconfigure(encoding="utf-8")
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("cislo", help="číslo utkání, např. 2026008C1A0906")
+    ap.add_argument("cislo", help="číslo utkání (14 znaků, viz README)")
     ap.add_argument("--csv", help="výstup do CSV")
     args = ap.parse_args()
 
