@@ -43,7 +43,7 @@ python program.py <číslo utkání>
 ```
 
 Uložení do CSV. Soubor má kódování UTF-8 s BOM.
-V Excelu správně zobrazí čeština.
+V Excelu se správně zobrazí čeština.
 
 ```bash
 python program.py <číslo utkání> --csv hraci.csv
