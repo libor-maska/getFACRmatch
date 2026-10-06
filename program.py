@@ -12,9 +12,9 @@ skript jde přes přehled soutěží (bez CAPTCHA). Číslo utkání má tvar
   RRRRSSSSSS KK ZZ
   = číslo soutěže, kolo, pořadí zápasu v kole.
 Najde soutěž, projde zápisy v daném kole a vybere ten s odpovídajícím číslem.
-
-Závislosti: pip install requests beautifulsoup4
 """
+
+
 import argparse
 import csv
 import re
@@ -94,7 +94,7 @@ def lookup_report_url(session, cislo):
     guids = round_match_guids(r.text, kolo)
     if not guids:
         raise RuntimeError(f"V soutěži {comp} jsem nenašel {kolo}. kolo.")
-    # nejdřív zkus zápas na pozici podle čísla, pak ostatní
+    
     order = guids[poradi - 1:poradi] + guids
     for g in dict.fromkeys(order):
         url = REPORT_URL.format(g)
